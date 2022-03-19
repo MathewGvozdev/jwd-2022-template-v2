@@ -74,7 +74,7 @@ public class TabletPC extends Appliance {
         private final Integer displayInches;
         private final Integer memoryRom;
         private final Integer flashMemoryCapacity;
-        private String color;
+        private String color = "Gray";
 
         public Builder(Double price,
                        Integer batteryCapacity,
@@ -86,7 +86,6 @@ public class TabletPC extends Appliance {
             this.displayInches = displayInches;
             this.memoryRom = memoryRom;
             this.flashMemoryCapacity = flashMemoryCapacity;
-            this.color = "Gray";
         }
 
         public Builder color(String color) {

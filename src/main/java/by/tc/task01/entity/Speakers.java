@@ -63,18 +63,16 @@ public class Speakers extends Appliance {
 
         private final Double price;
         private final Integer powerConsumption;
-        private Integer numberOfSpeakers;
+        private Integer numberOfSpeakers = 2;
         private final String frequencyRange;
-        private Integer cordLength;
+        private Integer cordLength = 1;
 
         public Builder(Double price,
                        Integer powerConsumption,
                        String frequencyRange) {
             this.price = price;
             this.powerConsumption = powerConsumption;
-            this.numberOfSpeakers = 2;
             this.frequencyRange = frequencyRange;
-            this.cordLength = 1;
         }
 
         public Builder numberOfSpeakers(Integer numberOfSpeakers) {

@@ -80,8 +80,8 @@ public class VacuumCleaner extends Appliance {
         private final Double price;
         private final Integer powerConsumption;
         private final String filterType;
-        private String bagType;
-        private String wandType;
+        private String bagType = "X4Y";
+        private String wandType = "all-in-one";
         private final Integer motorSpeedRegulation;
         private final Integer cleaningWidth;
 
@@ -93,8 +93,6 @@ public class VacuumCleaner extends Appliance {
             this.price = price;
             this.powerConsumption = powerConsumption;
             this.filterType = filterType;
-            this.bagType = "X4Y";
-            this.wandType = "all-in-one";
             this.motorSpeedRegulation = motorSpeedRegulation;
             this.cleaningWidth = cleaningWidth;
         }
