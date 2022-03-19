@@ -1,10 +1,9 @@
 package by.tc.task01.dao.impl;
 
 import by.tc.task01.dao.ApplianceDAO;
-import by.tc.task01.dao.builder.ApplianceBuilder;
 import by.tc.task01.dao.parser.DBParser;
 import by.tc.task01.entity.Appliance;
-import by.tc.task01.dao.builder.impl.Director;
+import by.tc.task01.dao.builder.director.Director;
 import by.tc.task01.entity.criteria.Criteria;
 
 import java.util.ArrayList;
@@ -35,8 +34,7 @@ public class ApplianceDAOImpl implements ApplianceDAO{
 	public List<Appliance> findByGroupSearchName(Criteria criteria) {
 		List<Appliance> appliancesByGroup = new ArrayList<>();
 		for (String applianceInfo : dbParser.getDatabaseLinesByGroup(criteria.getGroupSearchName())) {
-			ApplianceBuilder applianceBuilder = director.defineBuilderFromDB(applianceInfo);
-			appliancesByGroup.add(director.build(applianceBuilder));
+			appliancesByGroup.add(director.build(applianceInfo));
 		}
 		return appliancesByGroup;
 	}
