@@ -3,9 +3,9 @@ package by.tc.task01.dao;
 import by.tc.task01.dao.impl.ApplianceDAOImpl;
 
 public final class DAOFactory {
-	private static final DAOFactory instance = new DAOFactory();
+	private static final DAOFactory INSTANCE = new DAOFactory();
 
-	private final ApplianceDAO applianceDAO = new ApplianceDAOImpl();
+	private final ApplianceDAO applianceDAO = ApplianceDAOImpl.getInstance();
 	
 	private DAOFactory() {}
 
@@ -14,6 +14,6 @@ public final class DAOFactory {
 	}
 
 	public static DAOFactory getInstance() {
-		return instance;
+		return INSTANCE;
 	}
 }

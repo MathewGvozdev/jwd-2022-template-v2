@@ -1,16 +1,25 @@
 package by.tc.task01.entity;
 
-import by.tc.task01.entity.builder.VacuumCleanerBuilder;
-import by.tc.task01.entity.criteria.SearchCriteria;
+import java.util.Objects;
 
-public class VacuumCleaner extends Appliance{
+public class VacuumCleaner extends Appliance {
 
-    private Integer powerConsumption;
-    private String filterType;
-    private String bagType;
-    private String wandType;
-    private Integer motorSpeedRegulation;
-    private Integer cleaningWidth;
+    private final Integer powerConsumption;
+    private final String filterType;
+    private final String bagType;
+    private final String wandType;
+    private final Integer motorSpeedRegulation;
+    private final Integer cleaningWidth;
+
+    public VacuumCleaner(Builder builder) {
+        super(builder.price);
+        powerConsumption = builder.powerConsumption;
+        filterType = builder.filterType;
+        bagType = builder.bagType;
+        wandType = builder.wandType;
+        motorSpeedRegulation = builder.motorSpeedRegulation;
+        cleaningWidth = builder.cleaningWidth;
+    }
 
     public Integer getPowerConsumption() {
         return powerConsumption;
@@ -37,68 +46,71 @@ public class VacuumCleaner extends Appliance{
     }
 
     @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + ":\n" +
-                String.format("%s = %d\n", SearchCriteria.VacuumCleaner.POWER_CONSUMPTION, powerConsumption) +
-                String.format("%s = %s\n", SearchCriteria.VacuumCleaner.FILTER_TYPE, filterType) +
-                String.format("%s = %s\n", SearchCriteria.VacuumCleaner.BAG_TYPE, bagType) +
-                String.format("%s = %s\n", SearchCriteria.VacuumCleaner.WAND_TYPE, wandType) +
-                String.format("%s = %d\n", SearchCriteria.VacuumCleaner.MOTOR_SPEED_REGULATION, motorSpeedRegulation) +
-                String.format("%s = %d\n", SearchCriteria.VacuumCleaner.CLEANING_WIDTH, cleaningWidth);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VacuumCleaner that = (VacuumCleaner) o;
+        return Objects.equals(powerConsumption, that.powerConsumption) &&
+                Objects.equals(filterType, that.filterType) &&
+                Objects.equals(bagType, that.bagType) &&
+                Objects.equals(wandType, that.wandType) &&
+                Objects.equals(motorSpeedRegulation, that.motorSpeedRegulation) &&
+                Objects.equals(cleaningWidth, that.cleaningWidth);
     }
 
-    public static class Builder implements VacuumCleanerBuilder {
-        private final VacuumCleaner vacuumCleaner;
+    @Override
+    public int hashCode() {
+        return Objects.hash(powerConsumption, filterType, bagType, wandType, motorSpeedRegulation, cleaningWidth);
+    }
 
-        public Builder(){
-            vacuumCleaner = new VacuumCleaner();
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + ":\n" +
+                String.format("POWER_CONSUMPTION = %d\n", powerConsumption) +
+                String.format("FILTER_TYPE = %s\n", filterType) +
+                String.format("BAG_TYPE = %s\n", bagType) +
+                String.format("WAND_TYPE = %s\n", wandType) +
+                String.format("MOTOR_SPEED_REGULATION = %d\n", motorSpeedRegulation) +
+                String.format("CLEANING_WIDTH = %d\n", cleaningWidth) +
+                String.format("PRICE = $%.2f\n", getPrice());
+    }
+
+    public static class Builder {
+
+        private final Double price;
+        private final Integer powerConsumption;
+        private final String filterType;
+        private String bagType;
+        private String wandType;
+        private final Integer motorSpeedRegulation;
+        private final Integer cleaningWidth;
+
+        public Builder(Double price,
+                       Integer powerConsumption,
+                       String filterType,
+                       Integer motorSpeedRegulation,
+                       Integer cleaningWidth) {
+            this.price = price;
+            this.powerConsumption = powerConsumption;
+            this.filterType = filterType;
+            this.bagType = "X4Y";
+            this.wandType = "all-in-one";
+            this.motorSpeedRegulation = motorSpeedRegulation;
+            this.cleaningWidth = cleaningWidth;
         }
 
-        @Override
-        public Builder price(Double price){
-            vacuumCleaner.setPrice(price);
-            return this;
-        }
-
-        @Override
-        public Builder powerConsumption(Integer powerConsumption){
-            vacuumCleaner.powerConsumption = powerConsumption;
-            return this;
-        }
-
-        @Override
-        public Builder filterType(String filterType) {
-            vacuumCleaner.filterType = filterType.toUpperCase();
-            return this;
-        }
-
-        @Override
         public Builder bagType(String bagType) {
-            vacuumCleaner.bagType = bagType.toUpperCase();
+            this.bagType = bagType;
             return this;
         }
 
-        @Override
         public Builder wandType(String wandType) {
-            vacuumCleaner.wandType = wandType.toUpperCase();
+            this.wandType = wandType;
             return this;
         }
 
-        @Override
-        public Builder motorSpeedRegulation(Integer motorSpeedRegulation) {
-            vacuumCleaner.motorSpeedRegulation = motorSpeedRegulation;
-            return this;
-        }
-
-        @Override
-        public Builder cleaningWidth(Integer cleaningWidth) {
-            vacuumCleaner.cleaningWidth = cleaningWidth;
-            return this;
-        }
-
-        @Override
         public VacuumCleaner build() {
-            return vacuumCleaner;
+            return new VacuumCleaner(this);
         }
     }
 }

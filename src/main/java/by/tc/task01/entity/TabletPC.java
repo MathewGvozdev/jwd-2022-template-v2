@@ -1,15 +1,23 @@
 package by.tc.task01.entity;
 
-import by.tc.task01.entity.builder.TabletPCBuilder;
-import by.tc.task01.entity.criteria.SearchCriteria;
+import java.util.Objects;
 
-public class TabletPC extends Appliance{
+public class TabletPC extends Appliance {
 
-    private Integer batteryCapacity;
-    private Integer displayInches;
-    private Integer memoryRom;
-    private Integer flashMemoryCapacity;
-    private String color;
+    private final Integer batteryCapacity;
+    private final Integer displayInches;
+    private final Integer memoryRom;
+    private final Integer flashMemoryCapacity;
+    private final String color;
+
+    public TabletPC(Builder builder) {
+        super(builder.price);
+        batteryCapacity = builder.batteryCapacity;
+        displayInches = builder.displayInches;
+        memoryRom = builder.memoryRom;
+        flashMemoryCapacity = builder.flashMemoryCapacity;
+        color = builder.color;
+    }
 
     public Integer getBatteryCapacity() {
         return batteryCapacity;
@@ -32,61 +40,62 @@ public class TabletPC extends Appliance{
     }
 
     @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + ":\n" +
-                String.format("%s = %d\n", SearchCriteria.TabletPC.BATTERY_CAPACITY, batteryCapacity) +
-                String.format("%s = %d\n", SearchCriteria.TabletPC.DISPLAY_INCHES, displayInches) +
-                String.format("%s = %d\n", SearchCriteria.TabletPC.MEMORY_ROM, memoryRom) +
-                String.format("%s = %d\n", SearchCriteria.TabletPC.FLASH_MEMORY_CAPACITY, flashMemoryCapacity) +
-                String.format("%s = %s\n", SearchCriteria.TabletPC.COLOR, color);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TabletPC tabletPC = (TabletPC) o;
+        return Objects.equals(batteryCapacity, tabletPC.batteryCapacity) &&
+                Objects.equals(displayInches, tabletPC.displayInches) &&
+                Objects.equals(memoryRom, tabletPC.memoryRom) &&
+                Objects.equals(flashMemoryCapacity, tabletPC.flashMemoryCapacity) &&
+                Objects.equals(color, tabletPC.color);
     }
 
-    public static class Builder implements TabletPCBuilder {
-        private final TabletPC tabletPC;
+    @Override
+    public int hashCode() {
+        return Objects.hash(batteryCapacity, displayInches, memoryRom, flashMemoryCapacity, color);
+    }
 
-        public Builder(){
-            tabletPC = new TabletPC();
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + ":\n" +
+                String.format("BATTERY CAPACITY = %d\n", batteryCapacity) +
+                String.format("DISPLAY INCHES = %d\n", displayInches) +
+                String.format("MEMORY ROM = %d\n", memoryRom) +
+                String.format("FLASH MEMORY CAPACITY = %d\n", flashMemoryCapacity) +
+                String.format("COLOR = %s\n", color) +
+                String.format("PRICE = $%.2f\n", getPrice());
+    }
+
+    public static class Builder {
+
+        private final Double price;
+        private final Integer batteryCapacity;
+        private final Integer displayInches;
+        private final Integer memoryRom;
+        private final Integer flashMemoryCapacity;
+        private String color;
+
+        public Builder(Double price,
+                       Integer batteryCapacity,
+                       Integer displayInches,
+                       Integer memoryRom,
+                       Integer flashMemoryCapacity) {
+            this.price = price;
+            this.batteryCapacity = batteryCapacity;
+            this.displayInches = displayInches;
+            this.memoryRom = memoryRom;
+            this.flashMemoryCapacity = flashMemoryCapacity;
+            this.color = "Gray";
         }
 
-        @Override
-        public Builder price(Double price){
-            tabletPC.setPrice(price);
-            return this;
-        }
-
-        @Override
-        public Builder batteryCapacity(Integer batteryCapacity){
-            tabletPC.batteryCapacity = batteryCapacity;
-            return this;
-        }
-
-        @Override
-        public Builder displayInches(Integer displayInches) {
-            tabletPC.displayInches = displayInches;
-            return this;
-        }
-
-        @Override
-        public Builder memoryRom(Integer memoryRom) {
-            tabletPC.memoryRom = memoryRom;
-            return this;
-        }
-
-        @Override
-        public Builder flashMemoryCapacity(Integer flashMemoryCapacity) {
-            tabletPC.flashMemoryCapacity = flashMemoryCapacity;
-            return this;
-        }
-
-        @Override
         public Builder color(String color) {
-            tabletPC.color = color.toUpperCase();
+            this.color = color;
             return this;
         }
 
-        @Override
         public TabletPC build() {
-            return tabletPC;
+            return new TabletPC(this);
         }
     }
 }

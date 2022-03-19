@@ -1,16 +1,26 @@
 package by.tc.task01.entity;
 
-import by.tc.task01.entity.builder.OvenBuilder;
-import by.tc.task01.entity.criteria.SearchCriteria;
+import java.util.Objects;
 
 public class Oven extends Appliance {
 
-    private Integer powerConsumption;
-    private Integer weight;
-    private Integer capacity;
-    private Integer depth;
-    private Double height;
-    private Double width;
+    private final Integer powerConsumption;
+    private final Integer weight;
+    private final Integer capacity;
+    private final Integer depth;
+    private final Double height;
+    private final Double width;
+
+    public Oven(Builder builder) {
+        super();
+        setPrice(builder.price);
+        powerConsumption = builder.powerConsumption;
+        weight = builder.weight;
+        capacity = builder.capacity;
+        depth = builder.depth;
+        height = builder.height;
+        width = builder.width;
+    }
 
     public Integer getPowerConsumption() {
         return powerConsumption;
@@ -36,69 +46,65 @@ public class Oven extends Appliance {
         return width;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Oven oven = (Oven) o;
+        return Objects.equals(powerConsumption, oven.powerConsumption) &&
+                Objects.equals(weight, oven.weight) &&
+                Objects.equals(capacity, oven.capacity) &&
+                Objects.equals(depth, oven.depth) &&
+                Objects.equals(height, oven.height) &&
+                Objects.equals(width, oven.width);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(powerConsumption, weight, capacity, depth, height, width);
+    }
+
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + ":\n" +
-                String.format("%s = %d\n", SearchCriteria.Oven.POWER_CONSUMPTION, powerConsumption) +
-                String.format("%s = %d\n", SearchCriteria.Oven.WEIGHT, weight) +
-                String.format("%s = %d\n", SearchCriteria.Oven.CAPACITY, capacity) +
-                String.format("%s = %d\n", SearchCriteria.Oven.DEPTH, depth) +
-                String.format("%s = %.1f\n", SearchCriteria.Oven.HEIGHT, height) +
-                String.format("%s = %.1f\n", SearchCriteria.Oven.WIDTH, width);
+                String.format("POWER CONSUMPTION = %d\n", powerConsumption) +
+                String.format("WEIGHT = %d\n", weight) +
+                String.format("CAPACITY = %d\n", capacity) +
+                String.format("DEPTH = %d\n", depth) +
+                String.format("HEIGHT = %.1f\n", height) +
+                String.format("WIDTH = %.1f\n", width) +
+                String.format("PRICE = $%.2f\n", getPrice());
     }
 
-    public static class Builder implements OvenBuilder {
-        private final Oven oven;
+    public static class Builder {
 
-        public Builder(){
-            oven = new Oven();
+        private final Double price;
+        private final Integer powerConsumption;
+        private final Integer weight;
+        private final Integer capacity;
+        private final Integer depth;
+        private final Double height;
+        private final Double width;
+
+        public Builder(Double price,
+                       Integer powerConsumption,
+                       Integer weight,
+                       Integer capacity,
+                       Integer depth,
+                       Double height,
+                       Double width) {
+            this.price = price;
+            this.powerConsumption = powerConsumption;
+            this.weight = weight;
+            this.capacity = capacity;
+            this.depth = depth;
+            this.height = height;
+            this.width = width;
         }
 
-        @Override
-        public Builder price(Double price){
-            oven.setPrice(price);
-            return this;
-        }
-
-        @Override
-        public Builder powerConsumption(Integer powerConsumption){
-            oven.powerConsumption = powerConsumption;
-            return this;
-        }
-
-        @Override
-        public Builder weight(Integer weight) {
-            oven.weight = weight;
-            return this;
-        }
-
-        @Override
-        public Builder capacity(Integer capacity) {
-            oven.capacity = capacity;
-            return this;
-        }
-
-        @Override
-        public Builder depth(Integer depth) {
-            oven.depth = depth;
-            return this;
-        }
-
-        @Override
-        public Builder height(Double height) {
-            oven.height = height;
-            return this;
-        }
-
-        @Override
-        public Builder width(Double width) {
-            oven.width = width;
-            return this;
-        }
-
-        @Override
         public Oven build() {
-            return oven;
+            return new Oven(this);
         }
     }
 }

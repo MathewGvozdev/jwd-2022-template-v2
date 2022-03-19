@@ -1,16 +1,25 @@
 package by.tc.task01.entity;
 
-import by.tc.task01.entity.builder.LaptopBuilder;
-import by.tc.task01.entity.criteria.SearchCriteria;
+import java.util.Objects;
 
 public class Laptop extends Appliance {
 
-    private Double batteryCapacity;
-    private String os;
-    private Integer memoryRom;
-    private Integer systemMemory;
-    private Double cpu;
-    private Integer displayInches;
+    private final Double batteryCapacity;
+    private final String os;
+    private final Integer memoryRom;
+    private final Integer systemMemory;
+    private final Double cpu;
+    private final Integer displayInches;
+
+    public Laptop(Builder builder) {
+        super(builder.price);
+        batteryCapacity = builder.batteryCapacity;
+        os = builder.os;
+        memoryRom = builder.memoryRom;
+        systemMemory = builder.systemMemory;
+        cpu = builder.cpu;
+        displayInches = builder.displayInches;
+    }
 
     public Double getBatteryCapacity() {
         return batteryCapacity;
@@ -36,69 +45,68 @@ public class Laptop extends Appliance {
         return displayInches;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Laptop laptop = (Laptop) o;
+        return Objects.equals(batteryCapacity, laptop.batteryCapacity) &&
+                Objects.equals(os, laptop.os) &&
+                Objects.equals(memoryRom, laptop.memoryRom) &&
+                Objects.equals(systemMemory, laptop.systemMemory) &&
+                Objects.equals(cpu, laptop.cpu) &&
+                Objects.equals(displayInches, laptop.displayInches);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(batteryCapacity, os, memoryRom, systemMemory, cpu, displayInches);
+    }
+
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + ":\n" +
-                String.format("%s = %.1f\n", SearchCriteria.Laptop.BATTERY_CAPACITY, batteryCapacity) +
-                String.format("%s = %s\n", SearchCriteria.Laptop.OS, os) +
-                String.format("%s = %d\n", SearchCriteria.Laptop.MEMORY_ROM, memoryRom) +
-                String.format("%s = %d\n", SearchCriteria.Laptop.SYSTEM_MEMORY, systemMemory) +
-                String.format("%s = %.1f\n", SearchCriteria.Laptop.CPU, cpu) +
-                String.format("%s = %d\n", SearchCriteria.Laptop.DISPLAY_INCHES, displayInches);
+                String.format("BATTERY CAPACITY = %.1f\n", batteryCapacity) +
+                String.format("OS = %s\n", os) +
+                String.format("MEMORY ROM = %d\n", memoryRom) +
+                String.format("SYSTEM MEMORY = %d\n", systemMemory) +
+                String.format("CPU = %.1f\n", cpu) +
+                String.format("DISPLAY INCHES = %d\n", displayInches) +
+                String.format("PRICE = $%.2f\n", getPrice());
     }
 
-    public static class Builder implements LaptopBuilder  {
-        private final Laptop laptop;
+    public static class Builder {
 
-        public Builder(){
-            laptop = new Laptop();
+        private final Double price;
+        private final Double batteryCapacity;
+        private String os = "Without OS";
+        private final Integer memoryRom;
+        private final Integer systemMemory;
+        private final Double cpu;
+        private final Integer displayInches;
+
+        public Builder(Double price,
+                       Double batteryCapacity,
+                       Integer memoryRom,
+                       Integer systemMemory,
+                       Double cpu,
+                       Integer displayInches) {
+            this.price = price;
+            this.batteryCapacity = batteryCapacity;
+            this.memoryRom = memoryRom;
+            this.systemMemory = systemMemory;
+            this.cpu = cpu;
+            this.displayInches = displayInches;
         }
 
-        @Override
-        public Builder price(Double price){
-            laptop.setPrice(price);
-            return this;
-        }
-
-        @Override
-        public Builder batteryCapacity(Double batteryCapacity){
-            laptop.batteryCapacity = batteryCapacity;
-            return this;
-        }
-
-        @Override
         public Builder os(String os) {
-            laptop.os = os.toUpperCase();
+            this.os = os;
             return this;
         }
 
-        @Override
-        public Builder memoryRom(Integer memoryRom) {
-            laptop.memoryRom = memoryRom;
-            return this;
-        }
-
-        @Override
-        public Builder systemMemory(Integer systemMemory) {
-            laptop.systemMemory = systemMemory;
-            return this;
-        }
-
-        @Override
-        public Builder cpu(Double cpu) {
-            laptop.cpu = cpu;
-            return this;
-        }
-
-        @Override
-        public Builder displayInches(Integer displayInches) {
-            laptop.displayInches = displayInches;
-            return this;
-        }
-
-        @Override
         public Laptop build() {
-            return laptop;
+            return new Laptop(this);
         }
     }
 }

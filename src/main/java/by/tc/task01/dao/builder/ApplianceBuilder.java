@@ -1,10 +1,8 @@
-package by.tc.task01.entity.builder;
+package by.tc.task01.dao.builder;
 
 import by.tc.task01.entity.Appliance;
 
 public interface ApplianceBuilder {
-
-    ApplianceBuilder price(Double price);
 
     Appliance build();
 }

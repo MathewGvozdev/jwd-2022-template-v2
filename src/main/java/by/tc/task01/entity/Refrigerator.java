@@ -1,16 +1,25 @@
 package by.tc.task01.entity;
 
-import by.tc.task01.entity.builder.RefrigeratorBuilder;
-import by.tc.task01.entity.criteria.SearchCriteria;
+import java.util.Objects;
 
-public class Refrigerator extends Appliance{
+public class Refrigerator extends Appliance {
 
-    private Integer powerConsumption;
-    private Integer weight;
-    private Integer freezerCapacity;
-    private Double overallCapacity;
-    private Integer height;
-    private Integer width;
+    private final Integer powerConsumption;
+    private final Integer weight;
+    private final Integer freezerCapacity;
+    private final Double overallCapacity;
+    private final Integer height;
+    private final Integer width;
+
+    public Refrigerator(Builder builder) {
+        super(builder.price);
+        powerConsumption = builder.powerConsumption;
+        weight = builder.weight;
+        freezerCapacity = builder.freezerCapacity;
+        overallCapacity = builder.overallCapacity;
+        height = builder.height;
+        width = builder.width;
+    }
 
     public Integer getPowerConsumption() {
         return powerConsumption;
@@ -37,68 +46,63 @@ public class Refrigerator extends Appliance{
     }
 
     @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + ":\n" +
-                String.format("%s = %d\n", SearchCriteria.Refrigerator.POWER_CONSUMPTION, powerConsumption) +
-                String.format("%s = %d\n", SearchCriteria.Refrigerator.WEIGHT, weight) +
-                String.format("%s = %d\n", SearchCriteria.Refrigerator.FREEZER_CAPACITY, freezerCapacity) +
-                String.format("%s = %.1f\n", SearchCriteria.Refrigerator.OVERALL_CAPACITY, overallCapacity) +
-                String.format("%s = %d\n", SearchCriteria.Refrigerator.HEIGHT, height) +
-                String.format("%s = %d\n", SearchCriteria.Refrigerator.WIDTH, width);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Refrigerator that = (Refrigerator) o;
+        return Objects.equals(powerConsumption, that.powerConsumption) &&
+                Objects.equals(weight, that.weight) &&
+                Objects.equals(freezerCapacity, that.freezerCapacity) &&
+                Objects.equals(overallCapacity, that.overallCapacity) &&
+                Objects.equals(height, that.height) &&
+                Objects.equals(width, that.width);
     }
 
-    public static class Builder implements RefrigeratorBuilder {
-        private final Refrigerator refrigerator;
+    @Override
+    public int hashCode() {
+        return Objects.hash(powerConsumption, weight, freezerCapacity, overallCapacity, height, width);
+    }
 
-        public Builder(){
-            refrigerator = new Refrigerator();
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + ":\n" +
+                String.format("POWER CONSUMPTION = %d\n", powerConsumption) +
+                String.format("WEIGHT = %d\n", weight) +
+                String.format("FREEZER CAPACITY = %d\n", freezerCapacity) +
+                String.format("OVERALL CAPACITY = %.1f\n", overallCapacity) +
+                String.format("HEIGHT = %d\n", height) +
+                String.format("WIDTH = %d\n", width) +
+                String.format("PRICE = $%.2f\n", getPrice());
+    }
+
+    public static class Builder {
+
+        private final Double price;
+        private final Integer powerConsumption;
+        private final Integer weight;
+        private final Integer freezerCapacity;
+        private final Double overallCapacity;
+        private final Integer height;
+        private final Integer width;
+
+        public Builder(Double price,
+                       Integer powerConsumption,
+                       Integer weight,
+                       Integer freezerCapacity,
+                       Double overallCapacity,
+                       Integer height,
+                       Integer width) {
+            this.price = price;
+            this.powerConsumption = powerConsumption;
+            this.weight = weight;
+            this.freezerCapacity = freezerCapacity;
+            this.overallCapacity = overallCapacity;
+            this.height = height;
+            this.width = width;
         }
 
-        @Override
-        public Builder price(Double price){
-            refrigerator.setPrice(price);
-            return this;
-        }
-
-        @Override
-        public Builder powerConsumption(Integer powerConsumption){
-            refrigerator.powerConsumption = powerConsumption;
-            return this;
-        }
-
-        @Override
-        public Builder weight(Integer weight) {
-            refrigerator.weight = weight;
-            return this;
-        }
-
-        @Override
-        public Builder freezerCapacity(Integer freezerCapacity) {
-            refrigerator.freezerCapacity = freezerCapacity;
-            return this;
-        }
-
-        @Override
-        public Builder overallCapacity(Double overallCapacity) {
-            refrigerator.overallCapacity = overallCapacity;
-            return this;
-        }
-
-        @Override
-        public Builder height(Integer height) {
-            refrigerator.height = height;
-            return this;
-        }
-
-        @Override
-        public Builder width(Integer width) {
-            refrigerator.width = width;
-            return this;
-        }
-
-        @Override
         public Refrigerator build() {
-            return refrigerator;
+            return new Refrigerator(this);
         }
     }
 }

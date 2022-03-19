@@ -1,14 +1,21 @@
 package by.tc.task01.entity;
 
-import by.tc.task01.entity.builder.SpeakersBuilder;
-import by.tc.task01.entity.criteria.SearchCriteria;
+import java.util.Objects;
 
-public class Speakers extends Appliance{
+public class Speakers extends Appliance {
 
-    private Integer powerConsumption;
-    private Integer numberOfSpeakers;
-    private String frequencyRange;
-    private Integer cordLength;
+    private final Integer powerConsumption;
+    private final Integer numberOfSpeakers;
+    private final String frequencyRange;
+    private final Integer cordLength;
+
+    public Speakers(Builder builder) {
+        super(builder.price);
+        powerConsumption = builder.powerConsumption;
+        numberOfSpeakers = builder.numberOfSpeakers;
+        frequencyRange = builder.frequencyRange;
+        cordLength = builder.cordLength;
+    }
 
     public Integer getPowerConsumption() {
         return powerConsumption;
@@ -27,54 +34,61 @@ public class Speakers extends Appliance{
     }
 
     @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + ":\n" +
-                String.format("%s = %d\n", SearchCriteria.Speakers.POWER_CONSUMPTION, powerConsumption) +
-                String.format("%s = %d\n", SearchCriteria.Speakers.NUMBER_OF_SPEAKERS, numberOfSpeakers) +
-                String.format("%s = %s\n", SearchCriteria.Speakers.FREQUENCY_RANGE, frequencyRange) +
-                String.format("%s = %d\n", SearchCriteria.Speakers.CORD_LENGTH, cordLength);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Speakers speakers = (Speakers) o;
+        return Objects.equals(powerConsumption, speakers.powerConsumption) &&
+                Objects.equals(numberOfSpeakers, speakers.numberOfSpeakers) &&
+                Objects.equals(frequencyRange, speakers.frequencyRange) &&
+                Objects.equals(cordLength, speakers.cordLength);
     }
 
-    public static class Builder implements SpeakersBuilder {
-        private final Speakers speakers;
+    @Override
+    public int hashCode() {
+        return Objects.hash(powerConsumption, numberOfSpeakers, frequencyRange, cordLength);
+    }
 
-        public Builder(){
-            speakers = new Speakers();
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + ":\n" +
+                String.format("POWER CONSUMPTION = %d\n", powerConsumption) +
+                String.format("NUMBER OF SPEAKERS = %d\n", numberOfSpeakers) +
+                String.format("FREQUENCY RANGE = %s\n", frequencyRange) +
+                String.format("CORD LENGTH = %d\n", cordLength) +
+                String.format("PRICE = $%.2f\n", getPrice());
+    }
+
+    public static class Builder {
+
+        private final Double price;
+        private final Integer powerConsumption;
+        private Integer numberOfSpeakers;
+        private final String frequencyRange;
+        private Integer cordLength;
+
+        public Builder(Double price,
+                       Integer powerConsumption,
+                       String frequencyRange) {
+            this.price = price;
+            this.powerConsumption = powerConsumption;
+            this.numberOfSpeakers = 2;
+            this.frequencyRange = frequencyRange;
+            this.cordLength = 1;
         }
 
-        @Override
-        public Builder price(Double price){
-            speakers.setPrice(price);
-            return this;
-        }
-
-        @Override
-        public Builder powerConsumption(Integer powerConsumption){
-            speakers.powerConsumption = powerConsumption;
-            return this;
-        }
-
-        @Override
         public Builder numberOfSpeakers(Integer numberOfSpeakers) {
-            speakers.numberOfSpeakers = numberOfSpeakers;
+            this.numberOfSpeakers = numberOfSpeakers;
             return this;
         }
 
-        @Override
-        public Builder frequencyRange(String frequencyRange) {
-            speakers.frequencyRange = frequencyRange.toUpperCase();
-            return this;
-        }
-
-        @Override
         public Builder cordLength(Integer cordLength) {
-            speakers.cordLength = cordLength;
+            this.cordLength = cordLength;
             return this;
         }
 
-        @Override
         public Speakers build() {
-            return speakers;
+            return new Speakers(this);
         }
     }
 }

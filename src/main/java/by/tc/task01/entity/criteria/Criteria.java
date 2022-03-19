@@ -1,37 +1,60 @@
 package by.tc.task01.entity.criteria;
 
-import by.tc.task01.entity.Laptop;
+import by.tc.task01.entity.Appliance;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Criteria {
 
-    private String groupSearchName;
-    private Map<String, Object> criteria = new HashMap<String, Object>();
+    private final String groupSearchName;
+    private final Map<String, Object> searchCriteria = new HashMap<String, Object>();
 
     public Criteria(String groupSearchName) {
         this.groupSearchName = groupSearchName;
+    }
+
+    public boolean isMatches(Appliance appliance) {
+        return countMatchesWithAppliance(appliance) == searchCriteria.size();
+    }
+
+    private int countMatchesWithAppliance(Appliance appliance) {
+        int counter = 0;
+        Map<String, Object> specifications = appliance.getApplianceSpecifications();
+        for (Map.Entry<String, Object> criterion : searchCriteria.entrySet()) {
+            if (areEqualByValue(specifications.get(criterion.getKey()), criterion.getValue())) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    private boolean areEqualByValue(Object criteriaValue, Object applianceValue) {
+        try {
+            return Double.parseDouble(criteriaValue.toString()) == Integer.parseInt(applianceValue.toString());
+        } catch (NumberFormatException e) {
+            try {
+                return ((String) criteriaValue).equalsIgnoreCase((String) applianceValue);
+            } catch (ClassCastException e2) {
+                return criteriaValue.equals(applianceValue);
+            }
+        }
+    }
+
+    public void add(String specificationName, Object value) {
+        searchCriteria.put(specificationName, value);
+    }
+
+    public Set<String> getCriteriaNames() {
+        return searchCriteria.keySet();
     }
 
     public String getGroupSearchName() {
         return groupSearchName;
     }
 
-    public void add(String searchCriteria, Object value) {
-        if (searchCriteria.equals(SearchCriteria.Laptop.OS.toString()) ||
-                searchCriteria.equals(SearchCriteria.Speakers.FREQUENCY_RANGE.toString()) ||
-                searchCriteria.equals(SearchCriteria.TabletPC.COLOR.toString()) ||
-                searchCriteria.equals(SearchCriteria.VacuumCleaner.FILTER_TYPE.toString()) ||
-                searchCriteria.equals(SearchCriteria.VacuumCleaner.WAND_TYPE.toString()) ||
-                searchCriteria.equals(SearchCriteria.VacuumCleaner.BAG_TYPE.toString())) {
-            criteria.put(searchCriteria, ((String) value).toUpperCase());
-        } else {
-            criteria.put(searchCriteria, value);
-        }
-    }
-
     public Map<String, Object> getCriteria() {
-        return criteria;
+        return searchCriteria;
     }
 }
