@@ -21,7 +21,7 @@ public class SpeakersBuilder implements ApplianceBuilder{
     public Appliance build() {
         Map<String, Object> specifications = DBParser.parseLineToSpecification(specificationFromDB);
 
-        Double price = objToDouble(specifications, SearchCriteria.Appliance.PRICE.toString());
+        Double price = objToDouble(specifications, SearchCriteria.Speakers.PRICE.toString());
         Integer powerConsumption = objToInt(specifications, SearchCriteria.Speakers.POWER_CONSUMPTION.toString());
         Integer numberOfSpeakers = objToInt(specifications, SearchCriteria.Speakers.NUMBER_OF_SPEAKERS.toString());
         String frequencyRange = objToString(specifications, SearchCriteria.Speakers.FREQUENCY_RANGE.toString());

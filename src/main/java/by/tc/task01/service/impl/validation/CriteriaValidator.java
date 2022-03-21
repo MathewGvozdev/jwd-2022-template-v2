@@ -20,7 +20,9 @@ public class CriteriaValidator {
                 for (Field enumField : enumClass.getDeclaredFields()) {
                     enumFields.add(enumField.getName());
                 }
-                if (Collections.disjoint(criteriaNames, enumFields)) {
+                int initialEnumFieldsSize = enumFields.size();
+                enumFields.addAll(criteriaNames);
+                if (!(enumFields.size() == initialEnumFieldsSize)) {
                     validationResult.add(new Error("criteria.validator",
                             "Field wasn't find in " + enumClass.getSimpleName() + ". Check criteria correctness"));
                 }

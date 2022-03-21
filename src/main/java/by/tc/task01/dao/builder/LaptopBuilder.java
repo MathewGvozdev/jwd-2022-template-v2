@@ -21,7 +21,7 @@ public class LaptopBuilder implements ApplianceBuilder{
     public Appliance build() {
         Map<String, Object> specifications = DBParser.parseLineToSpecification(specificationFromDB);
 
-        Double price = objToDouble(specifications, SearchCriteria.Appliance.PRICE.toString());
+        Double price = objToDouble(specifications, SearchCriteria.Laptop.PRICE.toString());
         Double batteryCapacity = objToDouble(specifications, SearchCriteria.Laptop.BATTERY_CAPACITY.toString());
         String os = objToString(specifications, SearchCriteria.Laptop.OS.toString());
         Integer memoryRom = objToInt(specifications, SearchCriteria.Laptop.MEMORY_ROM.toString());

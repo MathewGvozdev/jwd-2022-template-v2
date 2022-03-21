@@ -22,7 +22,7 @@ public class RefrigeratorBuilder implements ApplianceBuilder {
     public Appliance build() {
         Map<String, Object> specifications = DBParser.parseLineToSpecification(specificationFromDB);
 
-        Double price = objToDouble(specifications, SearchCriteria.Appliance.PRICE.toString());
+        Double price = objToDouble(specifications, SearchCriteria.Refrigerator.PRICE.toString());
         Integer powerConsumption = objToInt(specifications, SearchCriteria.Refrigerator.POWER_CONSUMPTION.toString());
         Integer weight = objToInt(specifications, SearchCriteria.Refrigerator.WEIGHT.toString());
         Integer freezerCapacity = objToInt(specifications, SearchCriteria.Refrigerator.FREEZER_CAPACITY.toString());

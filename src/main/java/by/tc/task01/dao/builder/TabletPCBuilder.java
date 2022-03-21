@@ -21,7 +21,7 @@ public class TabletPCBuilder implements ApplianceBuilder{
     public Appliance build() {
         Map<String, Object> specifications = DBParser.parseLineToSpecification(specificationFromDB);
 
-        Double price = objToDouble(specifications, SearchCriteria.Appliance.PRICE.toString());
+        Double price = objToDouble(specifications, SearchCriteria.TabletPC.PRICE.toString());
         Integer batteryCapacity = objToInt(specifications, SearchCriteria.TabletPC.BATTERY_CAPACITY.toString());
         Integer displayInches = objToInt(specifications, SearchCriteria.TabletPC.DISPLAY_INCHES.toString());
         Integer memoryRom = objToInt(specifications, SearchCriteria.TabletPC.MEMORY_ROM.toString());

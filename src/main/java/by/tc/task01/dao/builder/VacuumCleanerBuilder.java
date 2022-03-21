@@ -21,7 +21,7 @@ public class VacuumCleanerBuilder implements ApplianceBuilder{
     public Appliance build() {
         Map<String, Object> specifications = DBParser.parseLineToSpecification(specificationFromDB);
 
-        Double price = objToDouble(specifications, SearchCriteria.Appliance.PRICE.toString());
+        Double price = objToDouble(specifications, SearchCriteria.VacuumCleaner.PRICE.toString());
         Integer powerConsumption = objToInt(specifications, SearchCriteria.VacuumCleaner.POWER_CONSUMPTION.toString());
         String filterType = objToString(specifications, SearchCriteria.VacuumCleaner.FILTER_TYPE.toString());
         String bagType = objToString(specifications, SearchCriteria.VacuumCleaner.BAG_TYPE.toString());

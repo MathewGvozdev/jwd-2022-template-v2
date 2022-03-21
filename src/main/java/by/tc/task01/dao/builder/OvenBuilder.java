@@ -22,7 +22,7 @@ public class OvenBuilder implements ApplianceBuilder{
     public Appliance build() {
         Map<String, Object> specifications = DBParser.parseLineToSpecification(specificationFromDB);
 
-        Double price = objToDouble(specifications, SearchCriteria.Appliance.PRICE.toString());
+        Double price = objToDouble(specifications, SearchCriteria.Oven.PRICE.toString());
         Integer powerConsumption = objToInt(specifications, SearchCriteria.Oven.POWER_CONSUMPTION.toString());
         Integer weight = objToInt(specifications, SearchCriteria.Oven.WEIGHT.toString());
         Integer capacity = objToInt(specifications, SearchCriteria.Oven.CAPACITY.toString());
