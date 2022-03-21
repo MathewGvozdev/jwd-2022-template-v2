@@ -14,6 +14,7 @@ public class CriteriaValidator {
         ValidationResult validationResult = new ValidationResult();
         String groupSearchName = criteria.getGroupSearchName();
         Set<String> criteriaNames = criteria.getCriteriaNames();
+
         for (Class<?> enumClass : SearchCriteria.class.getDeclaredClasses()) {
             Set<String> enumFields = new HashSet<>();
             if (enumClass.getSimpleName().equals(groupSearchName)) {

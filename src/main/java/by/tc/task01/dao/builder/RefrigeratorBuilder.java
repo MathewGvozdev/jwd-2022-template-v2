@@ -1,34 +1,24 @@
 package by.tc.task01.dao.builder;
 
-import by.tc.task01.dao.parser.DBParser;
 import by.tc.task01.entity.Appliance;
 import by.tc.task01.entity.Refrigerator;
 import by.tc.task01.entity.criteria.SearchCriteria;
 
-import java.util.Map;
+public class RefrigeratorBuilder extends ApplianceBuilder {
 
-import static by.tc.task01.dao.parser.DBParser.objToDouble;
-import static by.tc.task01.dao.parser.DBParser.objToInt;
-
-public class RefrigeratorBuilder implements ApplianceBuilder {
-
-    private final String specificationFromDB;
-
-    public RefrigeratorBuilder(String specificationFromDB) {
-        this.specificationFromDB = specificationFromDB;
+    public RefrigeratorBuilder(String applianceInfoFromDB) {
+        super(applianceInfoFromDB);
     }
 
     @Override
     public Appliance build() {
-        Map<String, Object> specifications = DBParser.parseLineToSpecification(specificationFromDB);
-
-        Double price = objToDouble(specifications, SearchCriteria.Refrigerator.PRICE.toString());
-        Integer powerConsumption = objToInt(specifications, SearchCriteria.Refrigerator.POWER_CONSUMPTION.toString());
-        Integer weight = objToInt(specifications, SearchCriteria.Refrigerator.WEIGHT.toString());
-        Integer freezerCapacity = objToInt(specifications, SearchCriteria.Refrigerator.FREEZER_CAPACITY.toString());
-        Double overallCapacity = objToDouble(specifications, SearchCriteria.Refrigerator.OVERALL_CAPACITY.toString());
-        Integer height = objToInt(specifications, SearchCriteria.Refrigerator.HEIGHT.toString());
-        Integer width = objToInt(specifications, SearchCriteria.Refrigerator.WIDTH.toString());
+        Double price = getDoubleValueFromDB(SearchCriteria.Refrigerator.PRICE.toString());
+        Integer powerConsumption = getIntValueFromDB(SearchCriteria.Refrigerator.POWER_CONSUMPTION.toString());
+        Integer weight = getIntValueFromDB(SearchCriteria.Refrigerator.WEIGHT.toString());
+        Integer freezerCapacity = getIntValueFromDB(SearchCriteria.Refrigerator.FREEZER_CAPACITY.toString());
+        Double overallCapacity = getDoubleValueFromDB(SearchCriteria.Refrigerator.OVERALL_CAPACITY.toString());
+        Integer height = getIntValueFromDB(SearchCriteria.Refrigerator.HEIGHT.toString());
+        Integer width = getIntValueFromDB(SearchCriteria.Refrigerator.WIDTH.toString());
 
         return new Refrigerator.Builder(price, powerConsumption, weight, freezerCapacity, overallCapacity, height, width)
                 .build();

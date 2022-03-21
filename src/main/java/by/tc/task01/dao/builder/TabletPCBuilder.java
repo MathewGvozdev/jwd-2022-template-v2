@@ -1,34 +1,25 @@
 package by.tc.task01.dao.builder;
 
-import by.tc.task01.dao.parser.DBParser;
 import by.tc.task01.entity.Appliance;
 import by.tc.task01.entity.TabletPC;
 import by.tc.task01.entity.criteria.SearchCriteria;
 
-import java.util.Map;
+public class TabletPCBuilder extends ApplianceBuilder {
 
-import static by.tc.task01.dao.parser.DBParser.*;
-
-public class TabletPCBuilder implements ApplianceBuilder{
-
-    private final String specificationFromDB;
-
-    public TabletPCBuilder(String specificationFromDB) {
-        this.specificationFromDB = specificationFromDB;
+    public TabletPCBuilder(String applianceInfoFromDB) {
+        super(applianceInfoFromDB);
     }
 
     @Override
     public Appliance build() {
-        Map<String, Object> specifications = DBParser.parseLineToSpecification(specificationFromDB);
+        Double price = getDoubleValueFromDB(SearchCriteria.TabletPC.PRICE.toString());
+        Integer batteryCapacity = getIntValueFromDB(SearchCriteria.TabletPC.BATTERY_CAPACITY.toString());
+        Integer displayInches = getIntValueFromDB(SearchCriteria.TabletPC.DISPLAY_INCHES.toString());
+        Integer memoryRom = getIntValueFromDB(SearchCriteria.TabletPC.MEMORY_ROM.toString());
+        Integer flashMemoryCapacity = getIntValueFromDB(SearchCriteria.TabletPC.FLASH_MEMORY_CAPACITY.toString());
+        String color = getStringValueFromDB(SearchCriteria.TabletPC.COLOR.toString());
 
-        Double price = objToDouble(specifications, SearchCriteria.TabletPC.PRICE.toString());
-        Integer batteryCapacity = objToInt(specifications, SearchCriteria.TabletPC.BATTERY_CAPACITY.toString());
-        Integer displayInches = objToInt(specifications, SearchCriteria.TabletPC.DISPLAY_INCHES.toString());
-        Integer memoryRom = objToInt(specifications, SearchCriteria.TabletPC.MEMORY_ROM.toString());
-        Integer flashMemoryCapacity = objToInt(specifications, SearchCriteria.TabletPC.FLASH_MEMORY_CAPACITY.toString());
-        String color = objToString(specifications, SearchCriteria.TabletPC.COLOR.toString());
-
-        return new TabletPC.Builder(price, batteryCapacity,displayInches, memoryRom, flashMemoryCapacity)
+        return new TabletPC.Builder(price, batteryCapacity, displayInches, memoryRom, flashMemoryCapacity)
                 .color(color)
                 .build();
     }

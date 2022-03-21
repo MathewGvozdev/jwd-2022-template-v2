@@ -3,17 +3,19 @@ package by.tc.task01.dao;
 import by.tc.task01.dao.impl.ApplianceDAOImpl;
 
 public final class DAOFactory {
-	private static final DAOFactory INSTANCE = new DAOFactory();
 
-	private final ApplianceDAO applianceDAO = ApplianceDAOImpl.getInstance();
-	
-	private DAOFactory() {}
+    private static final DAOFactory INSTANCE = new DAOFactory();
 
-	public ApplianceDAO getApplianceDAO() {
-		return applianceDAO;
-	}
+    private final ApplianceDAO applianceDAO = new ApplianceDAOImpl();
 
-	public static DAOFactory getInstance() {
-		return INSTANCE;
-	}
+    private DAOFactory() {
+    }
+
+    public ApplianceDAO getApplianceDAO() {
+        return applianceDAO;
+    }
+
+    public static DAOFactory getInstance() {
+        return INSTANCE;
+    }
 }

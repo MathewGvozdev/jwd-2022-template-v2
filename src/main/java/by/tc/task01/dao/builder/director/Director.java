@@ -12,15 +12,15 @@ public class Director {
     private Director(){
     }
 
-    public Appliance build(String lineFromDB) {
-        String applianceName = DBParser.defineApplianceGroup(lineFromDB);
-        return switch (applianceName) {
-            case "Laptop" -> new LaptopBuilder(lineFromDB).build();
-            case "Oven" -> new OvenBuilder(lineFromDB).build();
-            case "Refrigerator" -> new RefrigeratorBuilder(lineFromDB).build();
-            case "Speakers" -> new SpeakersBuilder(lineFromDB).build();
-            case "TabletPC" -> new TabletPCBuilder(lineFromDB).build();
-            case "VacuumCleaner" -> new VacuumCleanerBuilder(lineFromDB).build();
+    public Appliance build(String applianceInfoFromDB) {
+        String applianceGroup = DBParser.defineApplianceGroup(applianceInfoFromDB);
+        return switch (applianceGroup) {
+            case "Laptop" -> new LaptopBuilder(applianceInfoFromDB).build();
+            case "Oven" -> new OvenBuilder(applianceInfoFromDB).build();
+            case "Refrigerator" -> new RefrigeratorBuilder(applianceInfoFromDB).build();
+            case "Speakers" -> new SpeakersBuilder(applianceInfoFromDB).build();
+            case "TabletPC" -> new TabletPCBuilder(applianceInfoFromDB).build();
+            case "VacuumCleaner" -> new VacuumCleanerBuilder(applianceInfoFromDB).build();
             default -> throw new ApplianceBuilderException();
         };
     }

@@ -14,34 +14,34 @@ public abstract class Appliance {
         this.price = price;
     }
 
-    public Map<String, Object> getApplianceSpecifications() {
-        Map<String, Object> map = new HashMap<>();
+    public Map<String, Object> getApplianceSpecification() {
+        Map<String, Object> specification = new HashMap<>();
         try {
-            putFieldsOfParentClass(map);
-            putFieldsOfAppliance(map);
+            putFieldsOfParentClass(specification);
+            putFieldsOfAppliance(specification);
         } catch (IllegalAccessException e) {
             throw new ApplianceSpecificationException();
         }
-        return map;
+        return specification;
     }
 
-    private void putFieldsOfAppliance(Map<String, Object> map) throws IllegalAccessException {
+    private void putFieldsOfAppliance(Map<String, Object> specification) throws IllegalAccessException {
         Field[] declaredFields = this.getClass().getDeclaredFields();
         for (Field declaredField : declaredFields) {
             declaredField.setAccessible(true);
             Object value = declaredField.get(this);
             String specificationName = transformCamelCaseToSnail(declaredField);
-            map.put(specificationName, value);
+            specification.put(specificationName, value);
         }
     }
 
-    private void putFieldsOfParentClass(Map<String, Object> map) throws IllegalAccessException {
+    private void putFieldsOfParentClass(Map<String, Object> specification) throws IllegalAccessException {
         Field[] superDeclaredFields = this.getClass().getSuperclass().getDeclaredFields();
         for (Field superDeclaredField : superDeclaredFields) {
             superDeclaredField.setAccessible(true);
             Object value = superDeclaredField.get(this);
             String specificationName = transformCamelCaseToSnail(superDeclaredField);
-            map.put(specificationName, value);
+            specification.put(specificationName, value);
         }
     }
 

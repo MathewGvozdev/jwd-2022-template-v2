@@ -2,7 +2,7 @@ package by.tc.task01.exception;
 
 import by.tc.task01.service.impl.validation.Error;
 
-public class DatabaseParserException extends RuntimeException{
+public class DatabaseParserException extends RuntimeException {
 
     private final Error error;
 
