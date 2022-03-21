@@ -46,6 +46,16 @@ public final class DBParser {
         }
     }
 
+    public List<String> getDatabaseLinesByGroup(String groupName) {
+        List<String> linesByGroup = new ArrayList<>();
+        for (String line : DATABASE_LINES) {
+            if (line.startsWith(groupName)) {
+                linesByGroup.add(line);
+            }
+        }
+        return linesByGroup;
+    }
+
     public static String defineApplianceGroup(String info) {
         String lineWithoutSpaces = info.replaceAll(REGEX_SPACE, REGEX_EMPTY);
         Pattern pattern = Pattern.compile(REGEX_GROUP);
@@ -68,16 +78,6 @@ public final class DBParser {
             specificationFromDB.put(nameAndValue[NAME_POSITION_IN_DB], nameAndValue[VALUE_POSITION_IN_DB]);
         }
         return specificationFromDB;
-    }
-
-    public List<String> getDatabaseLinesByGroup(String groupName) {
-        List<String> linesByGroup = new ArrayList<>();
-        for (String line : DATABASE_LINES) {
-            if (line.startsWith(groupName)) {
-                linesByGroup.add(line);
-            }
-        }
-        return linesByGroup;
     }
 
     public static String objToString(Map<String, Object> specificationFromDB, String criteriaName) {

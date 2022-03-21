@@ -14,9 +14,6 @@ public abstract class Appliance {
         this.price = price;
     }
 
-    public Appliance() {
-    }
-
     public Map<String, Object> getApplianceSpecifications() {
         Map<String, Object> map = new HashMap<>();
         try {

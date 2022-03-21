@@ -22,7 +22,7 @@ public class CriteriaValidator {
                 }
                 if (Collections.disjoint(criteriaNames, enumFields)) {
                     validationResult.add(new Error("criteria.validator",
-                            enumClass.getSimpleName() + " field wasn't find. Check criteria correctness"));
+                            "Field wasn't find in " + enumClass.getSimpleName() + ". Check criteria correctness"));
                 }
             }
         }

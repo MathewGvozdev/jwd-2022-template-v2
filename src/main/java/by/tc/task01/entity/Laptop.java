@@ -68,7 +68,7 @@ public class Laptop extends Appliance {
     public String toString() {
         return this.getClass().getSimpleName() + ":\n" +
                 String.format("BATTERY CAPACITY = %.1f\n", batteryCapacity) +
-                String.format("OS = %s\n", os) +
+                String.format("OS = %s\n", os.toUpperCase()) +
                 String.format("MEMORY ROM = %d\n", memoryRom) +
                 String.format("SYSTEM MEMORY = %d\n", systemMemory) +
                 String.format("CPU = %.1f\n", cpu) +

@@ -63,7 +63,7 @@ public class TabletPC extends Appliance {
                 String.format("DISPLAY INCHES = %d\n", displayInches) +
                 String.format("MEMORY ROM = %d\n", memoryRom) +
                 String.format("FLASH MEMORY CAPACITY = %d\n", flashMemoryCapacity) +
-                String.format("COLOR = %s\n", color) +
+                String.format("COLOR = %s\n", color.toUpperCase()) +
                 String.format("PRICE = $%.2f\n", getPrice());
     }
 

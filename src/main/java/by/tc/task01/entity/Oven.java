@@ -12,8 +12,7 @@ public class Oven extends Appliance {
     private final Double width;
 
     public Oven(Builder builder) {
-        super();
-        setPrice(builder.price);
+        super(builder.price);
         powerConsumption = builder.powerConsumption;
         weight = builder.weight;
         capacity = builder.capacity;

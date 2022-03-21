@@ -41,7 +41,7 @@ public class Main {
 		//////////////////////////////////////////////////////////////////
 		
 		Criteria criteriaTabletPC = new Criteria(TabletPC.class.getSimpleName());
-		criteriaTabletPC.add(TabletPC.COLOR.toString(), "blue");
+		criteriaTabletPC.add(TabletPC.COLOR.toString(), "BLUE");
 		criteriaTabletPC.add(TabletPC.DISPLAY_INCHES.toString(), 14);
 		criteriaTabletPC.add(TabletPC.MEMORY_ROM.toString(), 8000);
 		criteriaTabletPC.add(SearchCriteria.Appliance.PRICE.toString(), 100.50);

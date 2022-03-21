@@ -1,6 +1,7 @@
 package by.tc.task01.entity.criteria;
 
 import by.tc.task01.entity.Appliance;
+import by.tc.task01.utility.ValueComparator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.Set;
 public class Criteria {
 
     private final String groupSearchName;
-    private final Map<String, Object> searchCriteria = new HashMap<String, Object>();
+    private final Map<String, Object> searchCriteria = new HashMap<>();
 
     public Criteria(String groupSearchName) {
         this.groupSearchName = groupSearchName;
@@ -23,23 +24,11 @@ public class Criteria {
         int counter = 0;
         Map<String, Object> specifications = appliance.getApplianceSpecifications();
         for (Map.Entry<String, Object> criterion : searchCriteria.entrySet()) {
-            if (areEqualByValue(specifications.get(criterion.getKey()), criterion.getValue())) {
+            if (ValueComparator.areEqual(specifications.get(criterion.getKey()), criterion.getValue())) {
                 counter++;
             }
         }
         return counter;
-    }
-
-    private boolean areEqualByValue(Object criteriaValue, Object applianceValue) {
-        try {
-            return Double.parseDouble(criteriaValue.toString()) == Integer.parseInt(applianceValue.toString());
-        } catch (NumberFormatException e) {
-            try {
-                return ((String) criteriaValue).equalsIgnoreCase((String) applianceValue);
-            } catch (ClassCastException e2) {
-                return criteriaValue.equals(applianceValue);
-            }
-        }
     }
 
     public void add(String specificationName, Object value) {

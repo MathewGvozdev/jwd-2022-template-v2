@@ -67,9 +67,9 @@ public class VacuumCleaner extends Appliance {
     public String toString() {
         return this.getClass().getSimpleName() + ":\n" +
                 String.format("POWER_CONSUMPTION = %d\n", powerConsumption) +
-                String.format("FILTER_TYPE = %s\n", filterType) +
-                String.format("BAG_TYPE = %s\n", bagType) +
-                String.format("WAND_TYPE = %s\n", wandType) +
+                String.format("FILTER_TYPE = %s\n", filterType.toUpperCase()) +
+                String.format("BAG_TYPE = %s\n", bagType.toUpperCase()) +
+                String.format("WAND_TYPE = %s\n", wandType.toUpperCase()) +
                 String.format("MOTOR_SPEED_REGULATION = %d\n", motorSpeedRegulation) +
                 String.format("CLEANING_WIDTH = %d\n", cleaningWidth) +
                 String.format("PRICE = $%.2f\n", getPrice());
