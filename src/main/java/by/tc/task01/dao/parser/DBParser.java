@@ -13,7 +13,7 @@ public final class DBParser {
 
     private static final DBParser INSTANCE = new DBParser();
 
-    private static final Path PATH_DB = Path.of("src", "main", "resources", "appliances_db.txt");
+    private static final Path PATH_DB = Path.of( "src", "main", "resources", "appliances_db.txt");
 
     private static final Integer NAME_POSITION_IN_DB = 0;
     private static final Integer VALUE_POSITION_IN_DB = 1;
@@ -42,7 +42,7 @@ public final class DBParser {
                 DATABASE_LINES.add(applianceInfo);
             }
         } catch (IOException e) {
-            throw new DatabaseParserException();
+            throw new DatabaseParserException(e);
         }
     }
 

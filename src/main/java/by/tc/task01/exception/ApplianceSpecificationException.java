@@ -6,9 +6,8 @@ public class ApplianceSpecificationException extends RuntimeException {
 
     private final Error error;
 
-    public ApplianceSpecificationException() {
-        this.error = new Error("appliance.field.access.exception",
-                "There is no access to private fields of the appliance");
+    public ApplianceSpecificationException(IllegalAccessException e) {
+        this.error = new Error("appliance.field.access.exception", e.getMessage());
     }
 
     public String getCode() {

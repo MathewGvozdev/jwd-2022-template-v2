@@ -5,7 +5,6 @@ import by.tc.task01.dao.parser.DBParser;
 import by.tc.task01.entity.Appliance;
 import by.tc.task01.dao.builder.director.Director;
 import by.tc.task01.entity.criteria.Criteria;
-import by.tc.task01.utility.CompareOption;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,17 +20,6 @@ public class ApplianceDAOImpl implements ApplianceDAO {
         List<Appliance> appliancesByGroup = findByGroupSearchName(criteria);
         for (Appliance appliance : appliancesByGroup) {
             if (criteria.isMatches(appliance)) {
-                searchedAppliances.add(appliance);
-            }
-        }
-        return searchedAppliances;
-    }
-
-    public List<Appliance> find(Criteria criteria, CompareOption option) {
-        List<Appliance> searchedAppliances = new ArrayList<>();
-        List<Appliance> appliancesByGroup = findByGroupSearchName(criteria);
-        for (Appliance appliance : appliancesByGroup) {
-            if (criteria.isMatches(appliance, option)) {
                 searchedAppliances.add(appliance);
             }
         }

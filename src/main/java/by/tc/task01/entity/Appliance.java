@@ -20,7 +20,7 @@ public abstract class Appliance {
             putFieldsOfParentClass(specification);
             putFieldsOfAppliance(specification);
         } catch (IllegalAccessException e) {
-            throw new ApplianceSpecificationException();
+            throw new ApplianceSpecificationException(e);
         }
         return specification;
     }

@@ -66,14 +66,15 @@ public class Oven extends Appliance {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + ":\n" +
-                String.format("POWER CONSUMPTION = %d\n", powerConsumption) +
-                String.format("WEIGHT = %d\n", weight) +
-                String.format("CAPACITY = %d\n", capacity) +
-                String.format("DEPTH = %d\n", depth) +
-                String.format("HEIGHT = %.1f\n", height) +
-                String.format("WIDTH = %.1f\n", width) +
-                String.format("PRICE = $%.2f\n", getPrice());
+        return String.format("%s:\n%s = %d\n%s = %d\n%s = %d\n%s = %d\n%s = %.1f\n%s = %.1f\n%s = $%.2f\n",
+                this.getClass().getSimpleName(),
+                "POWER CONSUMPTION", powerConsumption,
+                "WEIGHT", weight,
+                "CAPACITY", capacity,
+                "DEPTH", depth,
+                "HEIGHT", height,
+                "WIDTH", width,
+                "PRICE", getPrice());
     }
 
     public static class Builder {

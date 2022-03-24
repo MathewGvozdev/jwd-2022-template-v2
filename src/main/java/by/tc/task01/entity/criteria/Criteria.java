@@ -12,35 +12,27 @@ public class Criteria {
 
     private final String groupSearchName;
     private final Map<String, Object> criteria = new HashMap<>();
+    private final CompareOption option;
 
     public Criteria(String groupSearchName) {
         this.groupSearchName = groupSearchName;
+        this.option = CompareOption.EQUAL;
     }
 
-    public boolean isMatches(Appliance appliance, CompareOption option) {
-        return countMatchesWithAppliance(appliance, option) == criteria.size();
+    public Criteria(String groupSearchName, CompareOption option) {
+        this.groupSearchName = groupSearchName;
+        this.option = option;
     }
 
     public boolean isMatches(Appliance appliance) {
         return countMatchesWithAppliance(appliance) == criteria.size();
     }
 
-    private int countMatchesWithAppliance(Appliance appliance, CompareOption option) {
-        int counter = 0;
-        Map<String, Object> specifications = appliance.getApplianceSpecification();
-        for (Map.Entry<String, Object> criterion : criteria.entrySet()) {
-            if (ValueComparator.compareByOption(specifications.get(criterion.getKey()), criterion.getValue(), option)) {
-                counter++;
-            }
-        }
-        return counter;
-    }
-
     private int countMatchesWithAppliance(Appliance appliance) {
         int counter = 0;
         Map<String, Object> specifications = appliance.getApplianceSpecification();
         for (Map.Entry<String, Object> criterion : criteria.entrySet()) {
-            if (ValueComparator.isEqual(specifications.get(criterion.getKey()), criterion.getValue())) {
+            if (ValueComparator.compareByOption(specifications.get(criterion.getKey()), criterion.getValue(), option)) {
                 counter++;
             }
         }

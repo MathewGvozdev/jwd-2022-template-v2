@@ -51,12 +51,13 @@ public class Speakers extends Appliance {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + ":\n" +
-                String.format("POWER CONSUMPTION = %d\n", powerConsumption) +
-                String.format("NUMBER OF SPEAKERS = %d\n", numberOfSpeakers) +
-                String.format("FREQUENCY RANGE = %s\n", frequencyRange) +
-                String.format("CORD LENGTH = %d\n", cordLength) +
-                String.format("PRICE = $%.2f\n", getPrice());
+        return String.format("%s:\n%s = %d\n%s = %d\n%s = %s\n%s = %d\n%s = $%.2f\n",
+                this.getClass().getSimpleName(),
+                "POWER CONSUMPTION", powerConsumption,
+                "NUMBER OF SPEAKERS", numberOfSpeakers,
+                "FREQUENCY RANGE", frequencyRange,
+                "CORD LENGTH", cordLength,
+                "PRICE", getPrice());
     }
 
     public static class Builder {

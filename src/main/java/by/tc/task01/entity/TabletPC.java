@@ -58,13 +58,14 @@ public class TabletPC extends Appliance {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + ":\n" +
-                String.format("BATTERY CAPACITY = %d\n", batteryCapacity) +
-                String.format("DISPLAY INCHES = %d\n", displayInches) +
-                String.format("MEMORY ROM = %d\n", memoryRom) +
-                String.format("FLASH MEMORY CAPACITY = %d\n", flashMemoryCapacity) +
-                String.format("COLOR = %s\n", color.toUpperCase()) +
-                String.format("PRICE = $%.2f\n", getPrice());
+        return String.format("%s:\n%s = %d\n%s = %d\n%s = %d\n%s = %d\n%s = %s\n%s = $%.2f\n",
+                this.getClass().getSimpleName(),
+                "BATTERY CAPACITY", batteryCapacity,
+                "DISPLAY INCHES", displayInches,
+                "MEMORY ROM", memoryRom,
+                "FLASH MEMORY CAPACITY", flashMemoryCapacity,
+                "COLOR", color.toUpperCase(),
+                "PRICE", getPrice());
     }
 
     public static class Builder {

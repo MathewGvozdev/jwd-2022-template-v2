@@ -66,14 +66,15 @@ public class Laptop extends Appliance {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + ":\n" +
-                String.format("BATTERY CAPACITY = %.1f\n", batteryCapacity) +
-                String.format("OS = %s\n", os.toUpperCase()) +
-                String.format("MEMORY ROM = %d\n", memoryRom) +
-                String.format("SYSTEM MEMORY = %d\n", systemMemory) +
-                String.format("CPU = %.1f\n", cpu) +
-                String.format("DISPLAY INCHES = %d\n", displayInches) +
-                String.format("PRICE = $%.2f\n", getPrice());
+        return String.format("%s:\n%s = %.1f\n%s = %s\n%s = %d\n%s = %d\n%s = %.1f\n%s = %d\n%s = $%.2f\n",
+                this.getClass().getSimpleName(),
+                "BATTERY CAPACITY", batteryCapacity,
+                "OS", os.toUpperCase(),
+                "MEMORY ROM", memoryRom,
+                "SYSTEM MEMORY", systemMemory,
+                "CPU", cpu,
+                "DISPLAY INCHES", displayInches,
+                "PRICE", getPrice());
     }
 
     public static class Builder {

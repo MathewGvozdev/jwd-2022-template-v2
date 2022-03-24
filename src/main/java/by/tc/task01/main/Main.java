@@ -57,6 +57,7 @@ public class Main {
         Criteria criteriaLaptop = new Criteria(Laptop.class.getSimpleName());
         criteriaLaptop.add(SearchCriteria.Laptop.DISPLAY_INCHES.toString(), 40);
         criteriaLaptop.add("DISPLAY", "MATRIX");
+        criteriaLaptop.add("paofd", "12e");
 
         try {
             appliances = service.find(criteriaLaptop);
@@ -67,10 +68,10 @@ public class Main {
 
         //////////////////////////////////////////////////////////////////
 
-        criteriaLaptop = new Criteria(Laptop.class.getSimpleName());
+        criteriaLaptop = new Criteria(Laptop.class.getSimpleName(), CompareOption.MORE);
         criteriaLaptop.add(SearchCriteria.Laptop.PRICE.toString(), 500);
 
-        appliances = service.find(criteriaLaptop, CompareOption.MORE);
+        appliances = service.find(criteriaLaptop);
 
         PrintApplianceInfo.print(appliances);
     }

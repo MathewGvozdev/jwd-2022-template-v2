@@ -65,14 +65,15 @@ public class Refrigerator extends Appliance {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + ":\n" +
-                String.format("POWER CONSUMPTION = %d\n", powerConsumption) +
-                String.format("WEIGHT = %d\n", weight) +
-                String.format("FREEZER CAPACITY = %d\n", freezerCapacity) +
-                String.format("OVERALL CAPACITY = %.1f\n", overallCapacity) +
-                String.format("HEIGHT = %d\n", height) +
-                String.format("WIDTH = %d\n", width) +
-                String.format("PRICE = $%.2f\n", getPrice());
+        return String.format("%s:\n%s = %d\n%s = %d\n%s = %d\n%s = %.1f\n%s = %d\n%s = %d\n%s = $%.2f\n",
+                this.getClass().getSimpleName(),
+                "POWER CONSUMPTION", powerConsumption,
+                "WEIGHT", weight,
+                "FREEZER CAPACITY", freezerCapacity,
+                "OVERALL CAPACITY", overallCapacity,
+                "HEIGHT", height,
+                "WIDTH", width,
+                "PRICE", getPrice());
     }
 
     public static class Builder {

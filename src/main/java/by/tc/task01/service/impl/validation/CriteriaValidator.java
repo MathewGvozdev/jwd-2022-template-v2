@@ -18,18 +18,26 @@ public class CriteriaValidator {
         for (Class<?> enumClass : SearchCriteria.class.getDeclaredClasses()) {
             Set<String> enumFields = new HashSet<>();
             if (enumClass.getSimpleName().equals(groupSearchName)) {
-                for (Field enumField : enumClass.getDeclaredFields()) {
-                    enumFields.add(enumField.getName());
-                }
-                int initialEnumFieldsSize = enumFields.size();
+                int initialEnumFieldsSize = getInitialSizeOfEnumFields(enumClass, enumFields);
                 enumFields.addAll(criteriaNames);
-                if (!(enumFields.size() == initialEnumFieldsSize)) {
+                if (isSizeChanged(enumFields, initialEnumFieldsSize)) {
                     validationResult.add(new Error("criteria.validator",
                             "Field wasn't find in " + enumClass.getSimpleName() + ". Check criteria correctness"));
                 }
             }
         }
         return validationResult;
+    }
+
+    private boolean isSizeChanged(Set<String> enumFields, int initialEnumFieldsSize) {
+        return !(enumFields.size() == initialEnumFieldsSize);
+    }
+
+    private int getInitialSizeOfEnumFields(Class<?> enumClass, Set<String> enumFields) {
+        for (Field enumField : enumClass.getDeclaredFields()) {
+            enumFields.add(enumField.getName());
+        }
+        return enumFields.size();
     }
 
     public static CriteriaValidator getInstance() {
