@@ -3,8 +3,7 @@ package by.tc.task01.dao.parser;
 import by.tc.task01.exception.DatabaseParserException;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.net.URL;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,7 +12,7 @@ public final class DBParser {
 
     private static final DBParser INSTANCE = new DBParser();
 
-    private static final Path PATH_DB = Path.of( "src", "main", "resources", "appliances_db.txt");
+    private static final String DB_NAME = "appliances_db.txt";
 
     private static final Integer NAME_POSITION_IN_DB = 0;
     private static final Integer VALUE_POSITION_IN_DB = 1;
@@ -36,14 +35,21 @@ public final class DBParser {
     }
 
     private static void loadDatabaseToList() {
-        try (BufferedReader bufferedReader = Files.newBufferedReader(PATH_DB)) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(getFullDBPath()))) {
             while (bufferedReader.ready()) {
                 String applianceInfo = bufferedReader.readLine();
                 DATABASE_LINES.add(applianceInfo);
             }
-        } catch (IOException e) {
-            throw new DatabaseParserException(e);
+        } catch (FileNotFoundException fnfExc) {
+            throw new DatabaseParserException(fnfExc);
+        } catch (IOException ioExc) {
+            throw new DatabaseParserException(ioExc);
         }
+    }
+
+    private static String getFullDBPath() {
+        URL dbUrl = getInstance().getClass().getClassLoader().getResource(DB_NAME);
+        return Objects.requireNonNull(dbUrl).getPath();
     }
 
     public List<String> getDatabaseLinesByGroup(String groupName) {
